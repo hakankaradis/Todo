@@ -1,4 +1,5 @@
 var React = require('react');
+var React_Dom = require('react-dom')
 var ReactFire = require('reactfire');
 var Firebase = require('firebase');
 var Header = require('./header');
@@ -39,14 +40,27 @@ var App = React.createClass({
     } else {
       return <div className="text-center clear-complete">
         <hr />
+        {this.ClearButton() ?
         <button
-          type="button"
+          type="button" 
           onClick={this.onDeleteDoneClick}
           className="btn btn-default">
           Clear Complete
-        </button>
+        </button> : null}
       </div>
     }
+  },
+  ClearButton : function () {
+    for(var key in this.state.items) {
+      if(this.state.items[key].done === true) {
+          console.log("girmedim");
+
+        return true;
+      }
+    }
+
+ console.log("girdim");
+    return false;
   },
   onDeleteDoneClick: function() {
     for(var key in this.state.items) {
@@ -61,5 +75,5 @@ var App = React.createClass({
 });
 
 var element = React.createElement(App, {});
-React.render(element, document.querySelector('.container'));
+React_Dom.render(element, document.querySelector('.container'));
  
